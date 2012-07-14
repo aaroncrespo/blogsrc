@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "test 2"
+title: "First Post"
 date: 2012-07-09 19:50
 comments: true
 categories: 
