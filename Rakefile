@@ -1,7 +1,7 @@
 require "rubygems"
 require "bundler/setup"
 require "stringex"
-
+require "yui/compressor"
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
 ssh_user       = "user@domain.com"
@@ -48,10 +48,12 @@ end
 #######################
 
 desc "Generate jekyll site"
-task :generate do
+task generate: [:combine, :minify] do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
-  system "compass compile --css-dir #{source_dir}/stylesheets"
+  # not using compass
+  # system "compass compile --css-dir #{source_dir}/stylesheets"
+
   system "jekyll"
 end
 
@@ -394,4 +396,32 @@ end
 
 desc "Combine CSS/JS"
 task :combine => [:combine_css, :combine_js]
+
+desc "Minify CSS"
+task :minify_css do
+  puts "## Minifying CSS"
+  input = "#{source_dir}/stylesheets/all.css"
+  output = "#{public_dir}/stylesheets/all.css"
+  compressor = YUI::CssCompressor.new
+  minified = compressor.compress IO.read(input)
+  File.open(output, 'w') do |f|
+      f.write minified
+  end
+end
+
+desc "Minify JS"
+task :minify_js do
+  puts "## Minifying JS"
+  input = "#{source_dir}/javascripts/all.js"
+  output = "#{public_dir}/javascripts/all.js"
+  compressor = YUI::JavaScriptCompressor.new({munge: true, preserve_semicolons: true})
+  minified = compressor.compress IO.read(input)
+  File.open(output, 'w') do |f|
+      f.write minified
+  end
+end
+
+desc "Minify CSS/JS"
+task :minify => [:minify_css, :minify_js]
+
 

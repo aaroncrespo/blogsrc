@@ -13,6 +13,7 @@ group :development do
   gem 'rb-fsevent', '~> 0.9'
   gem 'stringex', '~> 1.4.0'
   gem 'liquid', '~> 2.3.0'
+  gem "yui-compressor", "~> 0.9.6", :require => "yui/compressor"
 end
 
 gem 'sinatra', '~> 1.3.2'
