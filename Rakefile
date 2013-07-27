@@ -383,7 +383,6 @@ task :combine_css do
   puts "## Combining CSS"
   styles_dir = "#{source_dir}/stylesheets"
   # Watch out! Order of files matters here!
-
   system "cat #{styles_dir}/base.css #{styles_dir}/skeleton.css #{styles_dir}/pygments.css #{styles_dir}/layout.css > #{styles_dir}/all.css"
 end
 
@@ -401,7 +400,7 @@ desc "Minify CSS"
 task :minify_css do
   puts "## Minifying CSS"
   input = "#{source_dir}/stylesheets/all.css"
-  output = "#{public_dir}/stylesheets/all.css"
+  output = "#{source_dir}/stylesheets/all.css"
   compressor = YUI::CssCompressor.new
   minified = compressor.compress IO.read(input)
   File.open(output, 'w') do |f|
@@ -413,7 +412,7 @@ desc "Minify JS"
 task :minify_js do
   puts "## Minifying JS"
   input = "#{source_dir}/javascripts/all.js"
-  output = "#{public_dir}/javascripts/all.js"
+  output = "#{source_dir}/javascripts/all.js"
   compressor = YUI::JavaScriptCompressor.new({munge: true, preserve_semicolons: true})
   minified = compressor.compress IO.read(input)
   File.open(output, 'w') do |f|
