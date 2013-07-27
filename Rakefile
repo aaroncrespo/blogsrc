@@ -375,3 +375,23 @@ task :list do
   puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(', ')}"
   puts "(type rake -T for more detail)\n\n"
 end
+
+desc "Combine CSS"
+task :combine_css do
+  puts "## Combining CSS"
+  styles_dir = "#{source_dir}/stylesheets"
+  # Watch out! Order of files matters here!
+
+  system "cat #{styles_dir}/base.css #{styles_dir}/skeleton.css #{styles_dir}/pygments.css #{styles_dir}/layout.css > #{styles_dir}/all.css"
+end
+
+desc "Combine JS"
+task :combine_js do
+  puts "## Combining JS"
+  scripts_dir = "#{source_dir}/javascripts"
+  system "cat #{scripts_dir}/modernizr-2.0.js #{scripts_dir}/ender.js #{scripts_dir}/octopress.js > #{scripts_dir}/all.js"
+end
+
+desc "Combine CSS/JS"
+task :combine => [:combine_css, :combine_js]
+
