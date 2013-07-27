@@ -16,67 +16,69 @@
 
 /* #Site Styles
 ================================================== */
-	.container {
-		padding-top: 30px; }
-
-	/* Doc nav */
-	nav {
-		width: 260px; }
-	nav ul {
-		float: left;  }
-	nav ul li {
-		display: inline;
-		padding-right: 10px}
-	nav ul li a,
-	nav ul li a:visited,
-	nav ul li a:active  {
-		font-size: 14px;
-		color: #555555;
-		text-decoration: none;
-		font-weight: bold;}
-	nav ul li a:hover,
-	nav ul li a:focus {
-		color: #222222;}
-	h1 {
-		font-size: 52px;
-		line-height: 61px;
-		letter-spacing: -1px;
-		font-weight: normal;
-		font-family: "Georgia", "Times New Roman", Helvetica, Arial, sans-serif;}
-	.large {
-		border: none;
-		height: 8px;
-		background: #EBEBEB;
-		margin: 50px 0;}
-	.red {
-		-webkit-transition: background .25s linear;
-		-ms-transition: background .25s linear;
-		-moz-transition: background .25s linear;
-		-o-transition: background .25s linear;
-		transition: background .25s linear;
-		background: #B2182D;}
-	.blue {
-		-webkit-transition: background .25s linear;
-		-ms-transition: background .25s linear;
-		-moz-transition: background .25s linear;
-		-o-transition: background .25s linear;
-		transition: background .25s linear;
-		background: #1C2B33;}
-	.yellow {
-		-webkit-transition: background .25s linear;
-		-ms-transition: background .25s linear;
-		-moz-transition: background .25s linear;
-		-o-transition: background .25s linear;
-		transition: background .25s linear;
- 		background: #BFA51B;}
-	.hidden-code a {
-		font-size: 12px;
-		color: #999;}
-	.hidden-code>div {
-		display: none;}
- article>footer>a {
-		font-size: 22px;}
-
+.container {
+	padding-top: 30px; }
+nav {
+	width: 260px; }
+nav ul {
+	float: left;  }
+nav ul li {
+	display: inline;
+	padding-right: 10px}
+nav ul li a,
+nav ul li a:visited,
+nav ul li a:active  {
+	font-size: 14px;
+	color: #555555;
+	text-decoration: none;
+	font-weight: bold;}
+nav ul li a:hover,
+nav ul li a:focus {
+	color: #222222;}
+h1 {
+	font-size: 52px;
+	line-height: 61px;
+	letter-spacing: -1px;
+	font-weight: normal;
+	font-family: "Georgia", "Times New Roman", Helvetica, Arial, sans-serif;}
+.large {
+	border: none;
+	height: 8px;
+	background: #EBEBEB;
+	margin: 50px 0;}
+.red {
+	-webkit-transition: background .25s linear;
+	-ms-transition: background .25s linear;
+	-moz-transition: background .25s linear;
+	-o-transition: background .25s linear;
+	transition: background .25s linear;
+	background: #B2182D;}
+.blue {
+	-webkit-transition: background .25s linear;
+	-ms-transition: background .25s linear;
+	-moz-transition: background .25s linear;
+	-o-transition: background .25s linear;
+	transition: background .25s linear;
+	background: #1C2B33;}
+.yellow {
+	-webkit-transition: background .25s linear;
+	-ms-transition: background .25s linear;
+	-moz-transition: background .25s linear;
+	-o-transition: background .25s linear;
+	transition: background .25s linear;
+		background: #BFA51B;}
+.hidden-code a {
+	font-size: 12px;
+	color: #999;}
+.hidden-code>div {
+	display: none;}
+article>footer>a {
+	font-size: 22px;}
+.highlight {
+	background-color:  #3f3f3f;}
+.gutter pre {
+	padding: 5px;
+	background-color:  #555;}
 
 /* #Page Styles
 ================================================== */
@@ -84,20 +86,20 @@
 /* #Media Queries
 ================================================== */
 
-	/* Smaller than standard 960 (devices and browsers) */
-	@media only screen and (max-width: 959px) {}
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
 
-	/* Tablet Portrait size to standard 960 (devices and browsers) */
-	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
 
-	/* All Mobile Sizes (devices and browser) */
-	@media only screen and (max-width: 767px) {}
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {}
 
-	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
 
-	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {}
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}
 
 
 /* #Font-Face
