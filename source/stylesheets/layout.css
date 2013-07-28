@@ -75,8 +75,10 @@ h1 {
 article>footer>a {
 	font-size: 22px;}
 .highlight {
+	border-radius: 8px;
 	background-color:  #3f3f3f;}
 .gutter pre {
+	border-radius: 8px 0 0 8px;
 	padding: 5px;
 	background-color:  #555;}
 
