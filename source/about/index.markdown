@@ -5,6 +5,5 @@ footer: false
 ---
 
 <section>
-  <h4>About Me</h4>
   <p>A little something about me.</p>
 </section>
