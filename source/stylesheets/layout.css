@@ -75,10 +75,19 @@ h1 {
 article>footer>a {
 	font-size: 22px;}
 .highlight {
-	background-color:  #3f3f3f;}
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background-color:  #3f3f3f;
+	margin-bottom: 5px}
 .gutter pre {
+	-webkit-border-radius: 8px 0 0 8px;
+	-moz-border-radius: 8px 0 0 8px;
+	border-radius: 8px 0 0 8px;
 	padding: 5px;
 	background-color:  #555;}
+.code pre {
+	padding-left:5px;}
 
 /* #Page Styles
 ================================================== */
