@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "clojure and leiningen can coexist with inputrc"
+title: "Clojure and Leiningen Coexisting With inputrc"
 date: 2013-08-03 09:43
 comments: true
 categories:
