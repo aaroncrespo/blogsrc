@@ -5,7 +5,8 @@ date: 2013-08-03 09:43
 comments: true
 categories:
 ---
-It is common to remap bash history keys with an `.inputrc` file.
+
+It is common to remap bash history keys with an `inputrc ` file.
 For example the following:
 
 ```bash
