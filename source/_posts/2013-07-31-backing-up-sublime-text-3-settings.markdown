@@ -17,15 +17,15 @@ With that I decided to back up to DropBox (similar steps work work with Google D
 ```c
 # Make your backup Folder.
 $ mkdir ~/Dropbox/ST3/
-$ cd  ~/Library/Application Support/Sublime Text 3
+$ cd ~/Library/Application\ Support/Sublime\ Text\ 3/
 
 # Move the files.
 $ mv Packages/ ~/Dropbox/ST3/
 $ mv Installed\ Packages/ ~/Dropbox/ST3/
 
 # Make symlinks
-$ ln -s ~/Dropbox/ST3/Packages/ Packages
-$ ln -s ~/Dropbox/ST3/Installed\ Packages/ "Installed Packaes"
+$ ln -s ~/Dropbox/ST3/Packages/ Packages/
+$ ln -s ~/Dropbox/ST3/Installed\ Packages Installed\ Packages/
 ```
 
 Now packages and Sublime Text update themselves and my backups always remain current.
@@ -33,12 +33,13 @@ Now packages and Sublime Text update themselves and my backups always remain cur
 __Bonus:__ syncing another system with my new backups.
 
 ```c
-$ cd  ~/Library/Application Support/Sublime Text 3
+$ cd ~/Library/Application\ Support/Sublime\ Text\ 3/
+
 # Remove packages and settings
 $ rm -rf Packages/ ~/Dropbox/ST3/
 $ rm -rf Installed\ Packages/ ~/Dropbox/ST3/
 
 # Make symlinks
-$ ln -s ~/Dropbox/ST3/Packages/ Packages
-$ ln -s ~/Dropbox/ST3/Installed\ Packages/ "Installed Packaes"
+$ ln -s ~/Dropbox/ST3/Packages/ Packages/
+$ ln -s ~/Dropbox/ST3/Installed\ Packages Installed\ Packages/
 ```
