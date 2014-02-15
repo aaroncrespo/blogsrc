@@ -1,0 +1,67 @@
+{
+  type: "FeatureCollection",
+  features: [
+  {
+      type: "Feature",
+      geometry: {
+      type: "Point",
+      coordinates: [
+        -77.495984,
+        38.342118
+      ]
+    },
+    properties: {
+      marker-symbol: "lodging",
+      name: "Days Inn Fredericksburg North",
+      address: "14 Simpson Lane, Fredericksburg, VA 22406"
+    }
+  },
+  {
+      type: "Feature",
+      geometry: {
+      type: "Point",
+      coordinates: [
+        -77.511132, 
+        38.296148 
+      ]
+    },
+    properties: {
+      marker-symbol: "lodging",
+      name: "Best Western Fredericksburg",
+      address: "2205 Plank Rd, Fredericksburg, VA 22401" 
+    }
+  },
+  {
+      type: "Feature",
+      geometry: {
+      type: "Point",
+      coordinates: [
+        -77.457251, 
+        38.300164 
+      ]
+    },
+    properties: {
+      marker-symbol: "lodging",
+      name: "Courtyard Marriott Fredericksburg Historic District",
+      address: "620 Caroline Street,  Fredericksburg, VA 22401"
+    }
+  },
+  {
+      type: "Feature",
+      geometry: {
+      type: "Point",
+      coordinates: [
+        -76.461971,
+        38.305457    
+      ]
+    },
+    properties: {
+      marker-symbol: "lodging",
+      name: "Kenmore Inn",
+      address: "1200 Princess Anne Street, Fredericksburg, VA 22401"
+    }
+  },
+
+
+]
+}

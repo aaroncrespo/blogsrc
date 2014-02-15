@@ -1,0 +1,101 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+{% include head.html %}
+<body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar" {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
+<div class="container">
+  <div class="twelve columns offset-by-one content">
+    <header>
+      <hgroup>
+      <h1><a href="{{ site_url }}/">Liz and Aaron</a></h1>
+      </hgroup>	
+    </header>
+    <hr class="large">
+
+  </div><!-- content -->
+
+
+  <div class="twelve columns offset-by-one content">
+
+    <div class="five columns content">
+      <blockquote
+        <p><h3>Where:</h3></p>
+        <p><strong>Kenmore Inn</strong></p>
+        <p>1200 Princess Anne St,<br />Fredericksburg, VA 22401</p>
+      </blockquote>
+      <blockquote>
+        <h3>When:</h3> 
+        <h4>April 25, 2015</h4>
+      </blockquote>
+    </div>
+
+    <div class="five columns content">
+      <script src="https://embed.github.com/view/geojson/aaroncrespo/localhotels.geojson/master/hotels.geojson?height=500&width=300"></script>
+    </div>
+
+    <hr class="large blue">
+  </div>
+
+  <div class="twelve columns offset-by-one content">
+    <p>We are so happy that you are planning on joining us! Please let us know how many guests you plan to bring.</p>
+    <form action="">      
+      <label for="">Meal Options:</label>
+      <div class="two columns content">
+        <fieldset>
+          <label for="chicken">Chicken</label>
+          <input type="number" id="chicken" placeholder="0" min="0" max="5"/>
+          <label for="beef">Beef</label>
+          <input type="number" id="beef" placeholder="0" min="0" max="5"/>
+        </fieldset>
+      </div>
+
+      <div class="two columns content">
+        <fieldset>
+          <label for="vegetarian">Vegetarian</label>
+          <input type="number" id="vegetarian" placeholder="0" min="0" max="5"/>
+          <label for="fish">Fish</label>
+          <input type="number" id="fish" placeholder="0" min="0" max="5"/>
+        </fieldset>
+      </div>
+
+      <div class="three columns offset-by-one content">
+        <label for="message">Message to us:</label>
+        <textarea id="message" placeholder="Anything else we should know?"/></textarea>
+      </div>
+
+    </form>
+
+    <div class="five columns offset-by-five content">
+      <a id="email" href="mailto:aaroncrespo+wedding@gmail.com?body=Pick+one:%0AVegetarian%0AFish%0AChicken%0ASteak%0A%0AHow+many+guests?:%0A%0AThanks!&subject=We're%20going!">
+        <h2>RSVP</h2>
+      </a>
+    </div>
+
+    <hr class="large yellow">
+  </div>
+
+  </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+window.foodOptions = {};
+$('input').change(function(){
+  var input = $(this);
+  var type = input.attr('id');
+  window.foodOptions[type] = input.val();  
+});
+
+$('#email').hover(function(){
+  var email = $(this);
+  var options = [];  
+  for(var key in window.foodOptions) {
+    if(parseInt(window.foodOptions[key],10) > 0) {
+      options.push(window.foodOptions[key] + " " + key[0].toUpperCase() + key.slice(1) + " for:");
+    }
+  }
+  var message = $("#message").val();
+  var foodOptions = options.join("\n");
+  email.attr("href", "mailto:aaroncrespo+wedding@gmail.com?body=" + 
+    encodeURI(foodOptions + "\n\n" + message + "\n\nThanks!") +
+    "&subject=" + 
+    encodeURI("We're going!"));
+});
+</script>
+</html>
