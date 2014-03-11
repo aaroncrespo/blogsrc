@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Aaron Crespo]]></title>
+  <link href="http://aaroncrespo.com/atom.xml" rel="self"/>
+  <link href="http://aaroncrespo.com/"/>
+  <updated>2014-03-11T19:31:22-04:00</updated>
+  <id>http://aaroncrespo.com/</id>
+  <author>
+    <name><![CDATA[Aaron]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Clojure and Leiningen Coexisting With inputrc]]></title>
+    <link href="http://aaroncrespo.com/blog/2013/08/03/clojure-and-leiningen-coexisting-with-inputrc/"/>
+    <updated>2013-08-03T09:43:00-04:00</updated>
+    <id>http://aaroncrespo.com/blog/2013/08/03/clojure-and-leiningen-coexisting-with-inputrc</id>
+    <content type="html"><![CDATA[<p>It is common to remap bash history keys with an <code>inputrc</code> file.
+For example the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="s2">&quot;\e[B&quot;</span>: <span class="nb">history</span>-search-forward
+</span><span class='line'><span class="s2">&quot;\e[A&quot;</span>: <span class="nb">history</span>-search-backward
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Will allow you to search your bash history with arrow keys forward and back based on the already entered string. If there is no string it will behave as &#8216;usual&#8217;. Similar to zsh&#8217;s history search.</p>
+
+<p>However if you have ever tried to toy with a clojure REPL with these settings you probably have, or will, notice that your history doesn&#8217;t work how you would expect it to:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">zero? </span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="nv">false</span>
+</span><span class='line'><span class="c1">;; Press up</span>
+</span><span class='line'><span class="p">(</span><span class="nf">reverse-i-search</span><span class="p">)</span><span class="o">`&#39;</span><span class="err">:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A <a href="https://github.com/jline/jline2/issues/51">bug</a> in jline (a command parsing library leiningen uses) causes it to mis-interpret a user&#8217;s .inputrc. Needless to say having no history in a REPL is a significant impediment. So lets fix it:</p>
+
+<p>We can either create a local leiningen repository and point it to a newer version of jline with the bug fixed. Or we can temporarily overwrite the self configuring behavior. Jline is <a href="https://github.com/jline/jline2/wiki/Configuration-Properties">configured</a> via its own <code>.jline.rc</code>. The default behavior looks for your <code>.inputrc</code>, it will then try and automagically configure itself to match your environment.</p>
+
+<p>The location of your input.rc is configurable within jline so that a jline specific inputrc configuration settings can be used. The default setting unsurprisingly points to your inputrc:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>jline.inputrc<span class="o">=</span><span class="nv">$HOME</span>/.inputrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To set a custom configuration you can make a new inputrc configured to your preference (for now without history key re-maps). Or, if you are okay with the default bash like behavior point it to a blank file.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># in a .jline.rc file in $HOME</span>
+</span><span class='line'>jline.inputrc<span class="o">=</span><span class="nv">$HOME</span>/.none
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart your REPL or terminal and your history will work how you expect again.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Backing up Sublime Text 3 settings]]></title>
+    <link href="http://aaroncrespo.com/blog/2013/07/31/backing-up-sublime-text-3-settings/"/>
+    <updated>2013-07-31T09:45:00-04:00</updated>
+    <id>http://aaroncrespo.com/blog/2013/07/31/backing-up-sublime-text-3-settings</id>
+    <content type="html"><![CDATA[<p>Setting up Sublime Text 3 works a little different than Sublime Text 2, and I like to keep my settings <a href="https://github.com/aaroncrespo/dotfiles">backed up</a> but since some ST3 packages and ST3 itself are under active development and varying stages of release my github backups tend to get out of date.</p>
+
+<p>With that I decided to back up to DropBox (similar steps work work with Google Drive). There is an added side effect of this backup method that makes sharing and syncing the backups extremely easy accross multiple computers.</p>
+
+<ol>
+<li>Use <a href="http://wbond.net/sublime_packages/package_control">package control</a>. This allows you to easily install packaged and keep them up to date.</li>
+<li>Close Sublime Text</li>
+<li>Move all your packages and settings to a drop box folder:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp"># Make your backup Folder.</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mkdir</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Move the files.</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mv</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mv</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Make symlinks</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now packages and Sublime Text update themselves and my backups always remain current.</p>
+
+<p><strong>Bonus:</strong> syncing another system with my new backups.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Remove packages and settings</span>
+</span><span class='line'><span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Make symlinks</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+</feed>
