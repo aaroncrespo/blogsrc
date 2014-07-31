@@ -5,7 +5,7 @@
   <div class="twelve columns offset-by-one content">
     <header>
       <hgroup>
-      <h1><a href="{{ site_url }}/">Liz and Aaron</a></h1>
+      <h1><a href="{{ site_url }}/and/lizyetter">Liz and Aaron</a></h1>
       </hgroup>	
     </header>
     <hr class="large">
@@ -36,6 +36,8 @@
 
   <div class="twelve columns offset-by-one content">
     <p>We are so happy that you are planning on joining us! Please let us know how many guests you plan to bring.</p>
+
+    <p>The button below will open your prefered email client with a pre-filled email to us with your Information</p>
     <form action="">      
       <label for="">Meal Options:</label>
       <div class="two columns content">
@@ -58,45 +60,45 @@
 
       <div class="three columns offset-by-one content">
         <label for="message">Message to us:</label>
-        <textarea id="message" placeholder="Anything else we should know?"/></textarea>
+        <textarea id="message" placeholder="Anything else we should know? Perhaps a favorite song!"/></textarea>
       </div>
 
+
+      <div class="one columns offset-by-one content">
+        <br>
+        <a id="email" class="button" href="mailto:aaroncrespo+wedding@gmail.com?body=Pick+one:%0AVegetarian%0AFish%0AChicken%0ASteak%0A%0AHow+many+guests?:%0A%0AThanks!&subject=We're%20going!">
+          <h4>RSVP</h4>
+        </a>
+      </div>
     </form>
-
-    <div class="five columns offset-by-five content">
-      <a id="email" href="mailto:aaroncrespo+wedding@gmail.com?body=Pick+one:%0AVegetarian%0AFish%0AChicken%0ASteak%0A%0AHow+many+guests?:%0A%0AThanks!&subject=We're%20going!">
-        <h2>RSVP</h2>
-      </a>
-    </div>
-
     <hr class="large yellow">
   </div>
 
   </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>
 window.foodOptions = {};
 $('input').change(function(){
-  var input = $(this);
-  var type = input.attr('id');
-  window.foodOptions[type] = input.val();  
-});
+    var input = $(this);
+    var type = input.attr('id');
+    window.foodOptions[type] = input.val();  
+    });
 
 $('#email').hover(function(){
-  var email = $(this);
-  var options = [];  
-  for(var key in window.foodOptions) {
+    var email = $(this);
+    var options = [];  
+    for(var key in window.foodOptions) {
     if(parseInt(window.foodOptions[key],10) > 0) {
-      options.push(window.foodOptions[key] + " " + key[0].toUpperCase() + key.slice(1) + " for:");
+    options.push(window.foodOptions[key] + " for " + key[0].toUpperCase() + key.slice(1));
     }
-  }
-  var message = $("#message").val();
-  var foodOptions = options.join("\n");
-  email.attr("href", "mailto:aaroncrespo+wedding@gmail.com?body=" + 
-    encodeURI(foodOptions + "\n\n" + message + "\n\nThanks!") +
-    "&subject=" + 
-    encodeURI("We're going!"));
-});
-</script>
-{% include google_analytics.html %}
-</html>
+    }
+    var message = $("#message").val();
+    var foodOptions = options.join("\n");
+    email.attr("href", "mailto:aaroncrespo+wedding@gmail.com?body=" + 
+      encodeURI(message + "\n\n" + foodOptions) +
+      "&subject=" + 
+      encodeURI("We're going!"));
+    });
+  </script>
+  {% include google_analytics.html %}
+  </html>
