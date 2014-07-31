@@ -1,0 +1,23 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+{% include head.html %}
+<body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar" {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
+<div class="container">
+  <div class="twelve columns offset-by-one content">
+    <header>
+      <hgroup>
+      <h1><a href="{{ site_url }}/and/lizyetter">Liz and Aaron</a></h1>
+      </hgroup>	
+    </header>
+    <hr class="large">
+
+  </div><!-- content -->
+
+
+  <div class="twelve columns offset-by-one content">
+    <iframe width="500" height="300" frameborder="0" src="https://docs.google.com/spreadsheet/pub?key=0Anb11t9OXrGMdEtnMVJGLVNqWGFlWExsb1B5V2JGVUE&single=true&gid=10&output=html&widget=true"></iframe>
+  </div>
+
+
+  </body>
+  {% include google_analytics.html %}
+  </html>
