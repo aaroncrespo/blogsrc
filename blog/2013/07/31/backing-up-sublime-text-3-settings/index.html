@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Backing up Sublime Text 3 settings - Aaron Crespo</title>
+  <meta name="author" content="Aaron">
+
+  
+  <meta name="description" content="Setting up Sublime Text 3 works a little different than Sublime Text 2, and I like to keep my settings backed up but since some ST3 packages and ST3 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aaroncrespo.github.com/blogsrc/blog/2013/07/31/backing-up-sublime-text-3-settings/">
+  <link href="/favicon.png" rel="icon">
+
+  <script src="/javascripts/all.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aaron Crespo" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/stylesheets/all.css">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+<div class="container">
+	<div class="twelve columns offset-by-one content">
+		<header><hgroup>
+  <h1><a href="/">Aaron Crespo</a></h1>
+  
+</hgroup>
+</header>
+		<nav><ul>
+  <li><a href="/">Posts</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+</nav>
+		<hr class="large">
+		<div>
+<article>
+  
+  <header>
+    
+      <h2 class="entry-title">Backing Up Sublime Text 3 Settings</h2>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-31T09:45:00-04:00" pubdate data-updated="true">Jul 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Setting up Sublime Text 3 works a little different than Sublime Text 2, and I like to keep my settings <a href="https://github.com/aaroncrespo/dotfiles">backed up</a> but since some ST3 packages and ST3 itself are under active development and varying stages of release my github backups tend to get out of date.</p>
+
+<p>With that I decided to back up to DropBox (similar steps work work with Google Drive). There is an added side effect of this backup method that makes sharing and syncing the backups extremely easy accross multiple computers.</p>
+
+<ol>
+<li>Use <a href="http://wbond.net/sublime_packages/package_control">package control</a>. This allows you to easily install packaged and keep them up to date.</li>
+<li>Close Sublime Text</li>
+<li>Move all your packages and settings to a drop box folder:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp"># Make your backup Folder.</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mkdir</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Move the files.</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mv</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">mv</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Make symlinks</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now packages and Sublime Text update themselves and my backups always remain current.</p>
+
+<p><strong>Bonus:</strong> syncing another system with my new backups.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Remove packages and settings</span>
+</span><span class='line'><span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp"># Make symlinks</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+</span><span class='line'><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Aaron</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-31T09:45:00-04:00" pubdate data-updated="true">Jul 31<span>st</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <br>
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/03/clojure-and-leiningen-coexisting-with-inputrc/" title="Next Post: Clojure and Leiningen Coexisting With inputrc">Clojure and Leiningen Coexisting With inputrc &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+</div>
+	  
+
+	</div><!-- content -->
+
+</div><!-- container -->
+
+<div class="container">
+	<footer class="twelve columns offset-by-one content">
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32863879-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<p>
+  Copyright &copy; 2014 - Aaron -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+</footer>
+</div>
+
+</body>
+</html>
