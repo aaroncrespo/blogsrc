@@ -16,6 +16,10 @@
 
 /* #Site Styles
 ================================================== */
+
+.ss-required-asterisk {
+	color: #B2182D;
+}
 .container {
 	padding-top: 30px; }
 nav {
