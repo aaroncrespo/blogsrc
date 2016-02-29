@@ -3,7 +3,7 @@ layout: post
 title: "Clojure and Leiningen Coexisting With inputrc"
 date: 2013-08-03 09:43
 comments: true
-categories: shorts, tools
+categories: [shorts, tools]
 ---
 
 It is common to remap bash history keys with an `inputrc ` file.
