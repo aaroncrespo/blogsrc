@@ -3,7 +3,7 @@ layout: post
 title: "Backing up Sublime Text 3 settings"
 date: 2013-07-31 09:45
 comments: true
-categories:
+categories: shorts
 ---
 
 Setting up Sublime Text 3 works a little different than Sublime Text 2, and I like to keep my settings [backed up](https://github.com/aaroncrespo/dotfiles) but since some ST3 packages and ST3 itself are under active development and varying stages of release my github backups tend to get out of date.
