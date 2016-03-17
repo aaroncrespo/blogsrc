@@ -10,7 +10,7 @@ I often pose a question to fellow engineers: “Given a Magic Engineer Wand™ w
 
 Let’s start with some guiding principles and end with a couple pitfalls to watch out for.
 
-## Single Use
+# Single Use
 
 A class should only have a single well defined responsibility. A responsibility, for our sake, can be thought of as requirement where if changed would require code changes in the class. A Render class that initially rendered content to a screen but now is required to render to an image would represent a change in responsibility. An exercise you can practice is listing responsibilities of a class frequent use of the word “and” is a good sign that class is violating this principle.
 
@@ -126,7 +126,7 @@ class ArticleServiceTests: XCTestCase {
 
 Small changes in the application’s requirements should only have small effects on the code (but try not to predict the future). Practice keeping classes small and narrowly defined. Compose responsibilities don’t build them out.
 
-## Avoid Editing: Extend
+# Avoid Editing: Extend
 At the root of it we want to write unit tests and systems that are not tightly coupled. We have described how having multiple responsibilities or concerns makes testing and refactoring challenging. Eventually some systems in our app have to interoperate. How can we limit the effects when a requirement changes on consumers of the updated systems? Modularity/Extensibility is one way to help accomplish this. Pieces that can plug in interchangeably will require minimal changes for consumers when they share a narrowly defined interface.
 
 Building off the previous example of changing the cache scheme..
@@ -169,7 +169,7 @@ ArticleService(cache: PersistantRequestCache())
 ```
 In this case modularity is enabled by a common interface inherited from the superclass. Alternately a protocol can be used to provide the common interface if subclassing is not appropriate.
 
-## Contracts
+# Contracts
 Modularity is great but sometimes we can’t achieve it merely by subclassing and composing classes. We can design with contracts in mind. These contracts can be based on system requirements, real world requirements or API requirements.
 
 Once established a subclass should not violate the contracts of a parent type. Correctness of the system should not be affected by changing for a more specific type. Consider this as a way to provide a good user experience for people you are sharing the code base with. An engineer should not find any surprises when an API that accepts a UIView parameter is given a UIButton.
@@ -212,12 +212,12 @@ view.bounds.height = 20
 view.bounds.height = 10
 ```
 
-## Divide Large Interfaces
+# Divide Large Interfaces
 It’s easier to grow code than shrink code but if you follow the previous guides ending up with large interfaces becomes a challenge. Small well defined modular classes and systems naturally have an API with a small surface area for their consumers.
 
 If you are faced with a large interface step one to improving the situation would be splitting it apart along concerns/responsibilities. This starts you on the road where you can begin extracting the behaviors into tighter defined classes. As an aside this is one of the reasons many people end up UIViewControllers that are a challenge to unit test. All they do is manage view Infrastructure, but managing is exposed as a very wide API that might require many calls to hook into. Decoupling code by moving logic into extensions or protocols and extracting those unit into subcomponents step by step will improve the codebase.
 
-## Invert Dependencies
+# Invert Dependencies
 A high level module should avoid depending on concrete implementations of its sub components. These dependencies should be managed via abstraction. A ViewController does not need to care about implementation details of fetching from a database. This has a synergy with extensibility depending on abstractions (protocols) instead of concrete implementations (classes) allows any class to extend a consumer simply by exposing the same interface. By coupling to abstractions implementation details are more isolated. If you buy into this principle heavily your unit tests requires minimal mocking.
 
 ```
@@ -290,12 +290,12 @@ class HomePageViewController {
 }
 ```
 
-## A Pitfall
+# A Pitfall
 For certain patterns singletons make it easy to compartmentalize parts of your app in a nice abstraction. Only one copy of your app is ever running at a time so the pattern is useful and sometimes safe for sharing state between parts of your app with a tightly defined API into a shared state. However, the flow of state through an app is one of your more valuable type of tests to write and singletons can rob you of easily maintaining an isolated model of that flow. Apple sample code the starting point for many an iOS developer sometimes makes it hard by often not including unit tests or not discussing how consumers of their singletons should go about unit testing. Many Cocoa API are singleton-like in their behavior and heavily used: NSUserDefaults, NSNotificationCenter, UIApplication.
 
 Using some of the above principles above we can alleviate these issues. If we design a dependency to an abstract interface it’s straightforward to avoid polluting the global state of other consumers by passing in dependencies that are not shared (inversion, contracts, and extension).
 
-## Challenges
+# Challenges
 That’s all great but some of these constructors are starting to become huge:
 
 ```
@@ -349,7 +349,7 @@ print(foo.dependant)   // 2
 ```
 Here we can see that the behavior of the dependent structure can be changed without touching the source of its dependent behavior (extend versus edit). The result of the closure is not recalculated so new dependencies may need to be set as needed.
 
-## Summary
+# Summary
 My ulterior motive for this post was to describe SOLID principles in the framework of unit testing architecture. More generally following the principles leads to easier to maintain change and extend code without throwing out piles of unit tests every release. Also threw in some bonus pitfalls that can make isolating and intuiting flow of state in each of your unit test cases.
 
 <pre class="language-swift">Single Use :      	        S   Single responsibility principle
@@ -359,7 +359,7 @@ Divide Large Interfaces :       I   Interface segregation principle
 Invert Dependencies :     	D   Dependency inversion principle
 </pre>
 
-### Additional Reading:
+## Additional Reading:
 
 * https://github.com/andymatuschak/refactor-the-mega-controller
 * https://developer.apple.com/sample-code/wwdc/2015/?q=Advanced%20User%20Interfaces
