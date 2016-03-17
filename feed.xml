@@ -5,9 +5,64 @@
     <description>Aaron&#39;s Blahg</description>
     <link>https://aaroncrespo.com/</link>
     <atom:link href="https://aaroncrespo.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Mar 2016 14:13:59 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Mar 2016 14:13:59 -0500</lastBuildDate>
+    <pubDate>Wed, 16 Mar 2016 21:46:28 -0400</pubDate>
+    <lastBuildDate>Wed, 16 Mar 2016 21:46:28 -0400</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
+    
+      <item>
+        <title>Adventures in Building Swift: Where&#39;s The Toolchain?</title>
+        <description>&lt;p&gt;Inspired by some starter tasks being posted by Swift contributors I figured I could take a stab at what it would take to contribute. I’ve been writing swift for a few years now so with battle scars and a couple language migrations under my belt this past weekend I set out to get started.&lt;/p&gt;
+
+&lt;h1 id=&quot;step-1&quot;&gt;Step 1:&lt;/h1&gt;
+
+&lt;p&gt;Follow the &lt;a href=&quot;https://github.com/apple/swift-corelibs-foundation/blob/master/Docs/GettingStarted.md&quot;&gt;Getting Started&lt;/a&gt; guides and get swift building locally… Cloning all the modules into the default directory layout was easy enough. Theres a script for it. SwiftFoundation includes an Xcode workspace to make development feel a little more similar to  usual Swift development. Opened it up and &lt;code class=&quot;highlighter-rouge&quot;&gt;⌘+R&lt;/code&gt; …&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Foundation/FoundationErrors.swift:10:48: Use of undeclared type ‘ErrorProtocol&#39;
+... and many more build errors
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;debugging&quot;&gt;Debugging&lt;/h1&gt;
+
+&lt;p&gt;It paid to have kept up to date on Swift’s progress so I knew some renaming was going to happen with the new API &lt;a href=&quot;https://github.com/apple/swift-evolution/blob/master/proposals/0006-apply-api-guidelines-to-the-standard-library.md&quot;&gt;Guidelines&lt;/a&gt;. Changing a few references of &lt;code class=&quot;highlighter-rouge&quot;&gt;ErrorProtocol&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;ErrorType&lt;/code&gt; squelched some errors which clued me into what was happening. Foundation, SwiftPM, and XCTest had already migrated to the new Swift 3 style API but the latest tool chain &lt;a href=&quot;https://swift.org/builds/swift-2.2-branch/xcode/swift-2.2-SNAPSHOT-2016-03-01-a/swift-2.2-SNAPSHOT-2016-03-01-a-osx.pkg&quot;&gt;3/1/2016a&lt;/a&gt; at the time was still a Swift 2 Toolchain.&lt;/p&gt;
+
+&lt;p&gt;I struggled a bit finding some guidance that was newcomer friendly that explained how to build a whole updated Toolchain. Luckily while digging around the mailing lists I found a message referencing the following pull request. &lt;a href=&quot;https://github.com/apple/swift/pull/1630&quot;&gt;https://github.com/apple/swift/pull/1630&lt;/a&gt; someone else was having slightly similar issues building Swift components.&lt;/p&gt;
+
+&lt;p&gt;Jumping off of the mailing list traffic I built my own Toolchain&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Ran from the parent directory of the development folder because swift build system defaults depend on a particular project layout&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;swift/utils/build-toolchain local.swift
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then copied (or linked) the new tool chain to proper directory&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# working out of the parent directory of the swift project structure&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ln -s /swift/Library/Developer/Toolchains/swift-LOCAL-2016-03-13-a.xctoolchain /Library/Developer/Toolchains/swift-LOCAL-2016-03-13-a.xctoolchain
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;step-1-part-2&quot;&gt;Step 1: Part 2&lt;/h1&gt;
+
+&lt;p&gt;Finally, again, following the normal getting started instructions I  linked Xcode and the commandline tools to the new Toolchain. Reopened the SwiftFoundation project reverting my experiment and:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Ld /Users/me/Library/Developer/Xcode/DerivedData/Foundation-bwakzktqvoihjjaxueecpzitisux/Build/Products/Debug/SwiftFoundation.framework/Versions/A/SwiftFoundation normal x86_64 ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Ld is the linker and that means we just successfully build SwiftFoundation under Swift&lt;/p&gt;
+
+&lt;h1 id=&quot;done&quot;&gt;Done&lt;/h1&gt;
+
+&lt;p&gt;As of 3/15/2016 there is still no prebuilt Swift 3 Toolchain so hopefully this blog post saves someone else’s weekend. Some contributors have gone ahead and begin to post links to prebuilt Swift 3 Toolchains, but building your own does not take terribly long.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 16 Mar 2016 10:30:00 -0400</pubDate>
+        <link>https://aaroncrespo.com/tools/2016/03/16/swift-3-toolchain.html</link>
+        <guid isPermaLink="true">https://aaroncrespo.com/tools/2016/03/16/swift-3-toolchain.html</guid>
+        
+        
+        <category>tools</category>
+        
+      </item>
     
       <item>
         <title>Towards Effective Unit Tests in Swift (and iOS in General)</title>
@@ -15,7 +70,7 @@
 
 &lt;p&gt;Let’s start with some guiding principles and end with a couple pitfalls to watch out for.&lt;/p&gt;
 
-&lt;h2 id=&quot;single-use&quot;&gt;Single Use&lt;/h2&gt;
+&lt;h1 id=&quot;single-use&quot;&gt;Single Use&lt;/h1&gt;
 
 &lt;p&gt;A class should only have a single well defined responsibility. A responsibility, for our sake, can be thought of as requirement where if changed would require code changes in the class. A Render class that initially rendered content to a screen but now is required to render to an image would represent a change in responsibility. An exercise you can practice is listing responsibilities of a class frequent use of the word “and” is a good sign that class is violating this principle.&lt;/p&gt;
 
@@ -131,7 +186,7 @@
 
 &lt;p&gt;Small changes in the application’s requirements should only have small effects on the code (but try not to predict the future). Practice keeping classes small and narrowly defined. Compose responsibilities don’t build them out.&lt;/p&gt;
 
-&lt;h2 id=&quot;avoid-editing-extend&quot;&gt;Avoid Editing: Extend&lt;/h2&gt;
+&lt;h1 id=&quot;avoid-editing-extend&quot;&gt;Avoid Editing: Extend&lt;/h1&gt;
 &lt;p&gt;At the root of it we want to write unit tests and systems that are not tightly coupled. We have described how having multiple responsibilities or concerns makes testing and refactoring challenging. Eventually some systems in our app have to interoperate. How can we limit the effects when a requirement changes on consumers of the updated systems? Modularity/Extensibility is one way to help accomplish this. Pieces that can plug in interchangeably will require minimal changes for consumers when they share a narrowly defined interface.&lt;/p&gt;
 
 &lt;p&gt;Building off the previous example of changing the cache scheme..&lt;/p&gt;
@@ -174,7 +229,7 @@ ArticleService(cache: PersistantRequestCache())
 &lt;/div&gt;
 &lt;p&gt;In this case modularity is enabled by a common interface inherited from the superclass. Alternately a protocol can be used to provide the common interface if subclassing is not appropriate.&lt;/p&gt;
 
-&lt;h2 id=&quot;contracts&quot;&gt;Contracts&lt;/h2&gt;
+&lt;h1 id=&quot;contracts&quot;&gt;Contracts&lt;/h1&gt;
 &lt;p&gt;Modularity is great but sometimes we can’t achieve it merely by subclassing and composing classes. We can design with contracts in mind. These contracts can be based on system requirements, real world requirements or API requirements.&lt;/p&gt;
 
 &lt;p&gt;Once established a subclass should not violate the contracts of a parent type. Correctness of the system should not be affected by changing for a more specific type. Consider this as a way to provide a good user experience for people you are sharing the code base with. An engineer should not find any surprises when an API that accepts a UIView parameter is given a UIButton.&lt;/p&gt;
@@ -217,12 +272,12 @@ view.bounds.height = 10
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;divide-large-interfaces&quot;&gt;Divide Large Interfaces&lt;/h2&gt;
+&lt;h1 id=&quot;divide-large-interfaces&quot;&gt;Divide Large Interfaces&lt;/h1&gt;
 &lt;p&gt;It’s easier to grow code than shrink code but if you follow the previous guides ending up with large interfaces becomes a challenge. Small well defined modular classes and systems naturally have an API with a small surface area for their consumers.&lt;/p&gt;
 
 &lt;p&gt;If you are faced with a large interface step one to improving the situation would be splitting it apart along concerns/responsibilities. This starts you on the road where you can begin extracting the behaviors into tighter defined classes. As an aside this is one of the reasons many people end up UIViewControllers that are a challenge to unit test. All they do is manage view Infrastructure, but managing is exposed as a very wide API that might require many calls to hook into. Decoupling code by moving logic into extensions or protocols and extracting those unit into subcomponents step by step will improve the codebase.&lt;/p&gt;
 
-&lt;h2 id=&quot;invert-dependencies&quot;&gt;Invert Dependencies&lt;/h2&gt;
+&lt;h1 id=&quot;invert-dependencies&quot;&gt;Invert Dependencies&lt;/h1&gt;
 &lt;p&gt;A high level module should avoid depending on concrete implementations of its sub components. These dependencies should be managed via abstraction. A ViewController does not need to care about implementation details of fetching from a database. This has a synergy with extensibility depending on abstractions (protocols) instead of concrete implementations (classes) allows any class to extend a consumer simply by exposing the same interface. By coupling to abstractions implementation details are more isolated. If you buy into this principle heavily your unit tests requires minimal mocking.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Before
@@ -295,12 +350,12 @@ class HomePageViewController {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;a-pitfall&quot;&gt;A Pitfall&lt;/h2&gt;
+&lt;h1 id=&quot;a-pitfall&quot;&gt;A Pitfall&lt;/h1&gt;
 &lt;p&gt;For certain patterns singletons make it easy to compartmentalize parts of your app in a nice abstraction. Only one copy of your app is ever running at a time so the pattern is useful and sometimes safe for sharing state between parts of your app with a tightly defined API into a shared state. However, the flow of state through an app is one of your more valuable type of tests to write and singletons can rob you of easily maintaining an isolated model of that flow. Apple sample code the starting point for many an iOS developer sometimes makes it hard by often not including unit tests or not discussing how consumers of their singletons should go about unit testing. Many Cocoa API are singleton-like in their behavior and heavily used: NSUserDefaults, NSNotificationCenter, UIApplication.&lt;/p&gt;
 
 &lt;p&gt;Using some of the above principles above we can alleviate these issues. If we design a dependency to an abstract interface it’s straightforward to avoid polluting the global state of other consumers by passing in dependencies that are not shared (inversion, contracts, and extension).&lt;/p&gt;
 
-&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
+&lt;h1 id=&quot;challenges&quot;&gt;Challenges&lt;/h1&gt;
 &lt;p&gt;That’s all great but some of these constructors are starting to become huge:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PHBViewController(service: PHBService(),
@@ -354,7 +409,7 @@ print(foo.dependant)   // 2
 &lt;/div&gt;
 &lt;p&gt;Here we can see that the behavior of the dependent structure can be changed without touching the source of its dependent behavior (extend versus edit). The result of the closure is not recalculated so new dependencies may need to be set as needed.&lt;/p&gt;
 
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
 &lt;p&gt;My ulterior motive for this post was to describe SOLID principles in the framework of unit testing architecture. More generally following the principles leads to easier to maintain change and extend code without throwing out piles of unit tests every release. Also threw in some bonus pitfalls that can make isolating and intuiting flow of state in each of your unit test cases.&lt;/p&gt;
 
 &lt;pre class=&quot;language-swift&quot;&gt;Single Use :      	        S   Single responsibility principle
@@ -364,7 +419,7 @@ Divide Large Interfaces :       I   Interface segregation principle
 Invert Dependencies :     	D   Dependency inversion principle
 &lt;/pre&gt;
 
-&lt;h3 id=&quot;additional-reading&quot;&gt;Additional Reading:&lt;/h3&gt;
+&lt;h2 id=&quot;additional-reading&quot;&gt;Additional Reading:&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;https://github.com/andymatuschak/refactor-the-mega-controller&lt;/li&gt;
