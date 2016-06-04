@@ -2,14 +2,23 @@
 
 DIRTY=`(git status -s)`
 
-#if [ -n "$DIRTY" ]; then
-#  echo "Dirty Changes, Failed"
-#  echo $DIRTY
-#else
+if [ -n "$DIRTY" ]; then
+  echo "Dirty Changes, Failed"
+  echo $DIRTY
+else
+  TEMP= "_temp"
+  git push
   git checkout source
-#  git push
-  jekyll b
+  git pull
+  jekyll b -d $TEMP
+
   git checkout gh-pages
-  cp -a /_site/. .
-  rm -r /_site/
-#fi
+  cp -a $TEMP/. .
+  rm -r $TEMP
+  MESSAGE=`(git log -n1 --pretty="%h - %s" origin/source)`
+  MESSAGE="Publishing: $MESSAGE"
+  git add .
+  git commit -am "$MESSAGE"
+  git push
+  git checkout -
+fi
