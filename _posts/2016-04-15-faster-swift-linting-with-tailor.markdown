@@ -3,7 +3,7 @@ layout: post
 title: "Faster Swift Linting with Tailor"
 date: 2016-04-15 10:30
 comments: true
-categories: tools, code quality
+categories: [tools, code quality]
 ---
 
 Linting is a good practice that helps make code reviews smoother. On linted code we can focus reviews on what the code is actually doing over what the code looks like. It also acts as a hedge against bike-shedding in a project and we can focus the review on the big ideas in the change. If we ever need discussion around code formatting some people have a strong "tabs vs spaces" opinion. Our style guide and lint rules are their own git repository a these discussions happen in there separate from the code that is subject to it. 
