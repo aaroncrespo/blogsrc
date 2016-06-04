@@ -3,6 +3,9 @@ body {
     font-family: 'Inconsolata', ;
     color: $iron;
     background-color: $dorian;
+    code.highlighter-rouge {
+        color: $gold;
+    }
 }
 
 a {
