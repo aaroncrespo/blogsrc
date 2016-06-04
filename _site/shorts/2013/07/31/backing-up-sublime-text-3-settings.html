@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Backing up Sublime Text 3 settings —  &raquo;  Aaron C.</title>
+<meta name="description" content="Aaron's Blahg">
+<meta name="keywords" content="">
+<link rel="canonical" href="https://aaroncrespo.com/shorts/2013/07/31/backing-up-sublime-text-3-settings.html">
+        
+
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Backing up Sublime Text 3 settings" />
+<meta name="twitter:description" content="Aaron's Blahg" />
+<meta name="twitter:image" content="https://aaroncrespo.com" />
+
+<!-- Google plus -->
+<meta name="author" content="">
+<link rel="author" href="">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backing up Sublime Text 3 settings">
+<meta property="og:description" content="Aaron's Blahg">
+<meta property="og:url" content="https://aaroncrespo.com/shorts/2013/07/31/backing-up-sublime-text-3-settings.html">
+<meta property="og:site_name" content="Aaron C.">
+
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/vendor/normalize-css/normalize.css">
+<link rel="stylesheet" href="/css/main.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/styles/solarized_dark.css">
+
+<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header class="header">
+    <div class="navigation">
+        <a href="/" class="logo">Aaron C.</a>
+
+        <ul class="menu">
+            <li class="menu__entry"><a href="/about">About</a></li>
+            <li class="menu__entry"><a href="/">Blog</a></li>
+        </ul>
+    </div>
+
+    <ul class="social-links">
+        
+            <a href="https://github.com/aaroncrespo" class="social-links__entry" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        
+
+        
+            <a href="https://twitter.com/aaroncrespo" class="social-links__entry" target="_blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+        
+    </ul>
+</header>
+
+            <h1 class="page-title post-title">
+    <div class="page-title__text post-title__text">Backing up Sublime Text 3 settings</div>
+    <div class="page-title__subtitle post-title__subtitle"></div>
+</h1>
+
+<div class="content">
+    <p>Setting up Sublime Text 3 works a little different than Sublime Text 2, and I like to keep my settings <a href="https://github.com/aaroncrespo/dotfiles">backed up</a> but since some ST3 packages and ST3 itself are under active development and varying stages of release my github backups tend to get out of date.</p>
+
+<p>With that I decided to back up to DropBox (similar steps work work with Google Drive). There is an added side effect of this backup method that makes sharing and syncing the backups extremely easy accross multiple computers.</p>
+
+<ol>
+  <li>Use <a href="http://wbond.net/sublime_packages/package_control">package control</a>. This allows you to easily install packaged and keep them up to date.</li>
+  <li>Close Sublime Text</li>
+  <li>Move all your packages and settings to a drop box folder:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp"># Make your backup Folder.
+</span><span class="err">$</span> <span class="n">mkdir</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+
+<span class="cp"># Move the files.
+</span><span class="err">$</span> <span class="n">mv</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">mv</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+
+<span class="cp"># Make symlinks
+</span><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</code></pre>
+</div>
+
+<p>Now packages and Sublime Text update themselves and my backups always remain current.</p>
+
+<p><strong>Bonus:</strong> syncing another system with my new backups.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="err">$</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span><span class="err">\</span> <span class="n">Support</span><span class="o">/</span><span class="n">Sublime</span><span class="err">\</span> <span class="n">Text</span><span class="err">\</span> <span class="mi">3</span><span class="o">/</span>
+
+<span class="cp"># Remove packages and settings
+</span><span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span>
+
+<span class="cp"># Make symlinks
+</span><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Packages</span><span class="o">/</span> <span class="n">Packages</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">Dropbox</span><span class="o">/</span><span class="n">ST3</span><span class="o">/</span><span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span> <span class="n">Installed</span><span class="err">\</span> <span class="n">Packages</span><span class="o">/</span>
+</code></pre>
+</div>
+
+</div>
+
+<div class="about">
+    <div class="about__devider">*****</div>
+    <div class="about__text">
+        Written by <strong>  Aaron C. </strong>
+        on <strong>31 July 2013</strong>
+    </div>
+</div>
+
+
+        </div>
+
+        <script src="/assets/vendor/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+        
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-32863879-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    </body>
+</html>
