@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+DIRTY=`(git status -s)`
+
+#if [ -n "$DIRTY" ]; then
+#  echo "Dirty Changes, Failed"
+#  echo $DIRTY
+#else
+  git checkout source
+#  git push
+  jekyll b
+  git checkout gh-pages
+  cp -a /_site/. .
+  rm -r /_site/
+#fi

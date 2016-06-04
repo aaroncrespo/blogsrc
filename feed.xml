@@ -5,8 +5,8 @@
     <description>Aaron&#39;s Blahg</description>
     <link>https://aaroncrespo.com/</link>
     <atom:link href="https://aaroncrespo.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 04 Jun 2016 13:51:11 -0400</pubDate>
-    <lastBuildDate>Sat, 04 Jun 2016 13:51:11 -0400</lastBuildDate>
+    <pubDate>Sat, 04 Jun 2016 17:14:19 -0400</pubDate>
+    <lastBuildDate>Sat, 04 Jun 2016 17:14:19 -0400</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;h1 id=&quot;introducing-tailorsh&quot;&gt;Introducing Tailor.sh&lt;/h1&gt;
 
-&lt;p&gt;We use &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; to run these quick formatting checks against our Swift style guide. In a recent project we noticed lint processing times were growing at a steady enough pace, to the point where sometimes we would turn off and forget to turn it back on. We looked at how &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; worked and noticed it would lint files that passed earlier checks but were not modified. We looked for flags to pass in to change this behavior, but ended up solving it on the input side.&lt;/p&gt;
+&lt;p&gt;We use &lt;a href=&quot;https://tailor.sh&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt;&lt;/a&gt; to run these quick formatting checks against our Swift style guide. In a recent project we noticed lint processing times were growing at a steady enough pace, to the point where sometimes we would turn off and forget to turn it back on. We looked at how &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; worked and noticed it would lint files that passed earlier checks but were not modified. We looked for flags to pass in to change this behavior, but ended up solving it on the input side.&lt;/p&gt;
 
 &lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
 
