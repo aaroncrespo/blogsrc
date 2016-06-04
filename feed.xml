@@ -5,9 +5,82 @@
     <description>Aaron&#39;s Blahg</description>
     <link>https://aaroncrespo.com/</link>
     <atom:link href="https://aaroncrespo.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 16 Mar 2016 21:46:28 -0400</pubDate>
-    <lastBuildDate>Wed, 16 Mar 2016 21:46:28 -0400</lastBuildDate>
+    <pubDate>Sat, 04 Jun 2016 13:51:11 -0400</pubDate>
+    <lastBuildDate>Sat, 04 Jun 2016 13:51:11 -0400</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
+    
+      <item>
+        <title>Faster Swift Linting with Tailor</title>
+        <description>&lt;p&gt;Linting is a good practice that helps make code reviews smoother. On linted code we can focus reviews on what the code is actually doing over what the code looks like. It also acts as a hedge against bike-shedding in a project and we can focus the review on the big ideas in the change. If we ever need discussion around code formatting some people have a strong “tabs vs spaces” opinion. Our style guide and lint rules are their own git repository a these discussions happen in there separate from the code that is subject to it.&lt;/p&gt;
+
+&lt;h1 id=&quot;introducing-tailorsh&quot;&gt;Introducing Tailor.sh&lt;/h1&gt;
+
+&lt;p&gt;We use &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; to run these quick formatting checks against our Swift style guide. In a recent project we noticed lint processing times were growing at a steady enough pace, to the point where sometimes we would turn off and forget to turn it back on. We looked at how &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; worked and noticed it would lint files that passed earlier checks but were not modified. We looked for flags to pass in to change this behavior, but ended up solving it on the input side.&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;p&gt;The default tailor integration is a small bash script executed as part of a build phase:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash &lt;/span&gt;tailor 2&amp;gt;/dev/null; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;tailor
+&lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;warning: Please install Tailor from https://tailor.sh&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We updated this to trim input into tailor and become more efficient with our time while working on a large swift project.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash &lt;/span&gt;tailor 2&amp;gt;/dev/null; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FILES&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git ls-files -mo --exclude-standard; git diff origin/HEAD --diff-filter&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ACMRUXB --name-only&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+            | grep swift&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$FILES&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$FILES&lt;/span&gt; | xargs tailor
+    &lt;span class=&quot;k&quot;&gt;fi
+else
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;warning: Please install Tailor from https://tailor.sh&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;breaking-it-down&quot;&gt;Breaking it down&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;if hash .. then .. fi&lt;/code&gt; is gracefully handling tailor not being installed.&lt;/li&gt;
+  &lt;li&gt;Next We are going to store all our dirty or new files in a local Bash variable &lt;code class=&quot;highlighter-rouge&quot;&gt;FILES&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Next is where it differs from the default
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git ls-files -mo --exclude-standard&lt;/code&gt; &lt;br /&gt;
+  A flat list of files, showing modified &lt;code class=&quot;highlighter-rouge&quot;&gt;-m&lt;/code&gt; and untracked &lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;--exclude-standard&lt;/code&gt; respecting your .gitignore.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git diff origin/HEAD --diff-filter=ACMRUXB --name-only&lt;/code&gt;&lt;br /&gt;
+  A diff of the local content against the &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; of your default remote repository. Showing only the file names of any different files except deleted.  A &lt;code class=&quot;highlighter-rouge&quot;&gt;D&lt;/code&gt; option in the diff-filter option would show deleted files and is a default)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;() |&lt;/code&gt; Combine the output of the first two git commands and send that into&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;grep swift&lt;/code&gt; We only want to run Swift files into tailor. So filter any file that isn’t Swift source code.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;xargs&lt;/code&gt; step just allows us to skip tailor all together if there is nothing to tailor.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;notes&quot;&gt;Notes&lt;/h1&gt;
+
+&lt;p&gt;The reason we use two separate git commands is that we like to see tailor results against our remote even if all local changes are added to the local index. Files aren’t listed in &lt;code class=&quot;highlighter-rouge&quot;&gt;git ls-files&lt;/code&gt; with our options once added to the index.&lt;br /&gt;
+We use &lt;code class=&quot;highlighter-rouge&quot;&gt;git ls-files&lt;/code&gt; over &lt;code class=&quot;highlighter-rouge&quot;&gt;git status&lt;/code&gt; because we don’t particularly care about the status of a file which git status provides per file. Rather we want a list of files matching our criteria.&lt;/p&gt;
+
+&lt;p&gt;#Finally&lt;br /&gt;
+Recently &lt;code class=&quot;highlighter-rouge&quot;&gt;tailor.sh&lt;/code&gt; added parallel processing so running this task happens on multiple files at once, earlier versions of tailor processed one file at a time and when run as a compile step iteration times where much higher. &lt;br /&gt;
+Running 4 times as fast can still eat up surprising amounts of time when you are trying to run tight iteration cycles.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 15 Apr 2016 10:30:00 -0400</pubDate>
+        <link>https://aaroncrespo.com/tools/quality/2016/04/15/faster-swift-linting-with-tailor.html</link>
+        <guid isPermaLink="true">https://aaroncrespo.com/tools/quality/2016/04/15/faster-swift-linting-with-tailor.html</guid>
+        
+        
+        <category>tools</category>
+        
+        <category>quality</category>
+        
+      </item>
     
       <item>
         <title>Adventures in Building Swift: Where&#39;s The Toolchain?</title>
