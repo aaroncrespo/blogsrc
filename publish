@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DIRTY=`(git status -s)`
+
+if [ -n "$DIRTY" ]; then
+  echo "Dirty Changes, Failed"
+  echo $DIRTY
+else
+  echo "Clean"
+fi
