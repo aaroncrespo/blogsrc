@@ -10,7 +10,7 @@ Linting is a good practice that helps make code reviews smoother. On linted code
 
 # Introducing Tailor.sh
 
-We use `tailor.sh` to run these quick formatting checks against our Swift style guide. In a recent project we noticed lint processing times were growing at a steady enough pace, to the point where sometimes we would turn off and forget to turn it back on. We looked at how `tailor.sh` worked and noticed it would lint files that passed earlier checks but were not modified. We looked for flags to pass in to change this behavior, but ended up solving it on the input side.
+We use [`tailor.sh`](https://tailor.sh) to run these quick formatting checks against our Swift style guide. In a recent project we noticed lint processing times were growing at a steady enough pace, to the point where sometimes we would turn off and forget to turn it back on. We looked at how `tailor.sh` worked and noticed it would lint files that passed earlier checks but were not modified. We looked for flags to pass in to change this behavior, but ended up solving it on the input side.
 
 # Code
 
