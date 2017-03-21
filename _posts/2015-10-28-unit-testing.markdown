@@ -16,7 +16,7 @@ A class should only have a single well defined responsibility. A responsibility,
 
 Take this example:
 
-```
+```swift
 struct ArticleService {
     private var cache = NSCache()
     private var client = APIClient(authentication: [])
@@ -67,7 +67,7 @@ class ArticleServiceTests: XCTestCase {
 ```
 It would be a reasonable request for ArticleService’s caching strategy to change. We can also see some tight coupling to cache state in our unit tests. Some of the tests are not unit tests but closer to integration tests. Additionally ArticleService requests content over the network and caches it. Caching in and of itself is a pretty well defined responsibility so let’s improve the code.
 
-```
+```swift
 struct ArticleService {
     private var APIClient = ContentAPI(authentication: authData)
     private var network = NSURLSession.sharedSession()
@@ -131,7 +131,7 @@ At the root of it we want to write unit tests and systems that are not tightly c
 
 Building off the previous example of changing the cache scheme..
 
-```
+```swift
 struct ArticleService {
     private var APIClient = ContentAPI(authentication: authData)
     private var network = NSURLSession.sharedSession()
@@ -152,7 +152,7 @@ struct ArticleService {
 ```
 A caching system generally shares a set of common functions so a requirement to change this service’s cache scheme could look like:
 
-```
+```swift
 /// caches requests in memory
 class RequestCache {
     // methods to cache content
@@ -174,7 +174,7 @@ Modularity is great but sometimes we can’t achieve it merely by subclassing an
 
 Once established a subclass should not violate the contracts of a parent type. Correctness of the system should not be affected by changing for a more specific type. Consider this as a way to provide a good user experience for people you are sharing the code base with. An engineer should not find any surprises when an API that accepts a UIView parameter is given a UIButton.
 
-```
+```swift
 class Rect {
     var height: Int = 0
     var width: Int = 0
@@ -220,7 +220,7 @@ If you are faced with a large interface step one to improving the situation woul
 # Invert Dependencies
 A high level module should avoid depending on concrete implementations of its sub components. These dependencies should be managed via abstraction. A ViewController does not need to care about implementation details of fetching from a database. This has a synergy with extensibility depending on abstractions (protocols) instead of concrete implementations (classes) allows any class to extend a consumer simply by exposing the same interface. By coupling to abstractions implementation details are more isolated. If you buy into this principle heavily your unit tests requires minimal mocking.
 
-```
+```swift
 // Before
 class CommicService: FavoriteAbleServiceProtocol, FetchingServiceProtocol {
     override var cache: SearchableCache {
@@ -298,7 +298,7 @@ Using some of the above principles above we can alleviate these issues. If we de
 # Challenges
 That’s all great but some of these constructors are starting to become huge:
 
-```
+```swift
 PHBViewController(service: PHBService(),
       stateMachine: PHBRuleMachine.currentState(),
       analytics: PHBAnalytics())
@@ -311,7 +311,7 @@ Swift specifically has some extra tools to help manage this as well.
 
 Default parameter values allow you to provide over rideable default dependencies
 
-```
+```swift
 class PHBViewController{
     convenience init(service: PHBService = PHBRemoteService(),
         stateMachine: PHBRuleMachine = PHBRuleMachine().currentState,
@@ -334,13 +334,14 @@ PHBViewController()
 ```
 Additionally lazy closure properties have a nice side effect that can aid us in managing dependencies without exposing the internal workings of our classes:
 
-```
+```swift
 struct Foo {
     private let dependency: Int = 1
     lazy var dependant: Int =  {
         return self.dependency * 6
     }()
 }
+
 var foo = Foo()
 print(foo.dependency)  // 1
 foo.dependant = 2

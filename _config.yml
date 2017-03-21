@@ -16,10 +16,10 @@ google_analytics: 'UA-32863879-1'
 # Handling Reading
 exclude: ["README.md", "README.html"]
 
+highlighter: pygments
 # Build settings
-markdown: kramdown
-
-kramdown:
-  syntax_highlighter: coderay
+markdown: redcarpet
+redcarpet:
+  syntax_highlighter: rogue
   input: GFM
   enable_coderay: true

@@ -11,7 +11,7 @@ Inspired by some starter tasks being posted by Swift contributors I figured I co
 
 Follow the [Getting Started](https://github.com/apple/swift-corelibs-foundation/blob/master/Docs/GettingStarted.md) guides and get swift building locally... Cloning all the modules into the default directory layout was easy enough. Theres a script for it. SwiftFoundation includes an Xcode workspace to make development feel a little more similar to  usual Swift development. Opened it up and `⌘+R` ...
 
-```
+```bash
 Foundation/FoundationErrors.swift:10:48: Use of undeclared type ‘ErrorProtocol'
 ... and many more build errors
 ```
@@ -40,7 +40,7 @@ $ ln -s /swift/Library/Developer/Toolchains/swift-LOCAL-2016-03-13-a.xctoolchain
 
 Finally, again, following the normal getting started instructions I  linked Xcode and the commandline tools to the new Toolchain. Reopened the SwiftFoundation project reverting my experiment and:
 
-```
+```bash
 Ld /Users/me/Library/Developer/Xcode/DerivedData/Foundation-bwakzktqvoihjjaxueecpzitisux/Build/Products/Debug/SwiftFoundation.framework/Versions/A/SwiftFoundation normal x86_64 ...
 ```
 Ld is the linker and that means we just successfully build SwiftFoundation under Swift
