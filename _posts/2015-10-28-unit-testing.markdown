@@ -16,7 +16,7 @@ A class should only have a single well defined responsibility. A responsibility,
 
 Take this example:
 
-```swift
+```
 struct ArticleService {
     private var cache = NSCache()
     private var client = APIClient(authentication: [])
@@ -67,7 +67,7 @@ class ArticleServiceTests: XCTestCase {
 ```
 It would be a reasonable request for ArticleService’s caching strategy to change. We can also see some tight coupling to cache state in our unit tests. Some of the tests are not unit tests but closer to integration tests. Additionally ArticleService requests content over the network and caches it. Caching in and of itself is a pretty well defined responsibility so let’s improve the code.
 
-```swift
+```
 struct ArticleService {
     private var APIClient = ContentAPI(authentication: authData)
     private var network = NSURLSession.sharedSession()

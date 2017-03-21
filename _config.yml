@@ -18,6 +18,8 @@ exclude: ["README.md", "README.html"]
 
 # Build settings
 markdown: kramdown
+
 kramdown:
+  syntax_highlighter: coderay
   input: 		  GFM
   enable_coderay: true
